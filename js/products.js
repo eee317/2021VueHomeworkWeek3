@@ -74,6 +74,19 @@ const app={
                 console.dir(err)
             })
 
+        },
+        delProduct(){
+            const apiUrl=`${this.url}/v2/api/${this.api_path}/admin/product/${this.tempProduct.id}`
+            axios.delete(apiUrl)
+            .then(res=>{
+                console.log(res.data)
+                delProductModal.hide();
+                alert(res.data.message)
+                this.getProducts();
+            })
+            .catch(err=>{
+                console.dir(err)
+            })
         }
 
     },
@@ -83,7 +96,7 @@ const app={
             });
         delProductModal = new bootstrap.Modal(document.getElementById('delProductModal'), {
             keyboard: false
-            })
+            });
 
         const token = document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*\=\s*([^;]*).*$)|^.*$/, "$1");
         axios.defaults.headers.common['Authorization'] = token;
